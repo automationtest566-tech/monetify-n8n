@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: monetify-n8n
+    env: docker
+    plan: starter
+    region: frankfurt
+    repo: https://github.com/automationtest566-tech/monetify-n8n
+    branch: main
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: N8N_BASIC_AUTH_ACTIVE
+        value: "true"
+      - key: N8N_BASIC_AUTH_USER
+        value: admin
+      - key: N8N_BASIC_AUTH_PASSWORD
+        sync: false
+      - key: GENERIC_TIMEZONE
+        value: Europe/Stockholm
+      - key: N8N_PROTOCOL
+        value: https
+      - key: WEBHOOK_URL
+        value: https://monetify-n8n.onrender.com
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+    disk:
+      name: n8n-data
+      mountPath: /home/node/.n8n
+      sizeGB: 10
